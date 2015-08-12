@@ -1,0 +1,201 @@
+constant CXXFLAGS-COMMON :
+#     <cxxflags>-Weffc++
+#     <cxxflags>-Wswitch-enum
+#     <cxxflags>-Wswitch-default
+    <cxxflags>-pedantic
+#    <cxxflags>-Wconversion
+    <cxxflags>-Wvla
+    <cxxflags>-Wstrict-aliasing=2
+#    <cxxflags>-Wlong-long
+
+    <cxxflags>-Wuninitialized
+    <cxxflags>-Wnon-virtual-dtor
+    <cxxflags>-Wall
+    <cxxflags>-Wextra
+    <cxxflags>-Wno-unused-parameter
+    <cxxflags>-Wno-long-long
+    <cxxflags>-Wtype-limits
+    <cxxflags>-Wundef
+    <cxxflags>-Wcast-align
+    <cxxflags>-Wchar-subscripts
+#     <cxxflags>-Wformat
+    <cxxflags>-Wformat=2
+    <cxxflags>-Wformat-security
+#     <cxxflags>-Wmissing-format-attribute
+    <cxxflags>-Wsequence-point
+    <cxxflags>-Wreturn-type
+    <cxxflags>-Wfloat-equal
+#     <cxxflags>-Wshadow
+    <cxxflags>-Wpointer-arith
+    <cxxflags>-Wsign-compare
+#     <cxxflags>-Wmissing-declarations
+    <cxxflags>-Wpacked
+    <cxxflags>-Wredundant-decls
+#     <cxxflags>-Winline
+    <cxxflags>-Winit-self
+    <cxxflags>-Wcast-qual
+    <cxxflags>-Woverloaded-virtual
+    <cxxflags>-Wunused-variable
+#     <cxxflags>-Wunused-parameter
+    <cxxflags>-Wmissing-include-dirs
+    <cxxflags>-Wunused
+    <cxxflags>-Wendif-labels
+    <cxxflags>-Wwrite-strings
+#     <cxxflags>-Wpadded
+    <cxxflags>-Wstrict-overflow=1
+#     <cxxflags>-Wstrict-overflow=5
+    <cxxflags>-Wc++11-compat
+    <cxxflags>-Wnarrowing
+    <cxxflags>-Wvolatile-register-var
+    <cxxflags>-Wdisabled-optimization
+    <cxxflags>-Woverlength-strings
+    <cxxflags>-Warray-bounds
+
+    <cxxflags>-Wold-style-cast
+    <cxxflags>-Wsign-conversion
+
+#     <toolset>clang:<cxxflags>-Weverything
+#     <toolset>clang:<cxxflags>-Wno-c++98-compat
+    <toolset>clang:<cxxflags>-Wno-mismatched-tags
+#    <toolset>clang:<cxxflags>-Wno-overloaded-virtual
+    <toolset>clang:<cxxflags>-Wno-char-subscripts
+    <toolset>clang:<cxxflags>-Wno-unused-variable
+#     <toolset>clang:<cxxflags>-Wno-unused-private-field
+;
+
+
+constant CXXFLAGS-GCC-4.7 :
+    <cxxflags>-Wunused-but-set-parameter
+    <cxxflags>-Wunused-but-set-variable
+#     <cxxflags>-Wsuggest-attribute=pure
+#     <cxxflags>-Wsuggest-attribute=const
+    <cxxflags>-Wsuggest-attribute=noreturn
+    <cxxflags>-Wzero-as-null-pointer-constant
+    <cxxflags>-Wlogical-op
+#     <cxxflags>-Wno-aggressive-loop-optimizations
+    <cxxflags>-Wnormalized=nfc #disable ?
+    <cxxflags>-Wvector-operation-performance
+    <cxxflags>-Wdouble-promotion
+    <cxxflags>-Wmaybe-uninitialized
+    <cxxflags>-Wtrampolines
+;
+
+
+constant CXXFLAGS-GCC-4.8 :
+    $(CXXFLAGS-GCC-4.7)
+    <cxxflags>-Wuseless-cast
+;
+
+
+constant CXXFLAGS-GCC-4.9 :
+    $(CXXFLAGS-GCC-4.8)
+    <cxxflags>-Wconditionally-supported
+    <cxxflags>-Wfloat-conversion
+    <cxxflags>-Wopenmp-simd
+    <cxxflags>-Wparentheses
+;
+
+
+constant CXXFLAGS-GCC-5 :
+    $(CXXFLAGS-GCC-4.9)
+    <cxxflags>-Wlogical-not-parentheses
+    <cxxflags>-Wswitch-bool
+    <cxxflags>-Wsizeof-array-argument
+    <cxxflags>-Wbool-compare
+    <cxxflags>-Wsuggest-final-types
+    <cxxflags>-Wsuggest-final-methods
+#     <cxxflags>-Wsuggest-override
+#     <cxxflags>-fsized-deallocation
+#     <cxxflags>-Wsized-deallocation
+    <cxxflags>-flto-odr-type-merging
+    <cxxflags>-Wno-odr #  Requires -flto-odr-type-merging to be enabled
+;
+
+
+constant CXXFLAGS-GCC-6 :
+    $(CXXFLAGS-GCC-5)
+;
+
+
+#gcov -a -c -b -f -o bin/gcc-4.6/coverage/tests/test_stream.gcno bin/gcc-4.6/coverage/test_stream
+
+lib gcov : : <name>gcov : ;
+
+variant asan : debug :
+    <cxxflags>-fsanitize=address
+    <linkflags>-lasan
+    <define>CXX_ENABLE_ASAN
+;
+
+project program_options
+    : requirements
+    <include>src
+
+    <variant>debug:<cxxflags>-g
+
+    <cxxflags>-std=c++11
+
+
+    $(CXXFLAGS-COMMON)
+    <toolset>gcc-4.7:$(CXXFLAGS-GCC-4.7)
+    <toolset>gcc-4.8:$(CXXFLAGS-GCC-4.8)
+    <toolset>gcc-4.9.1:$(CXXFLAGS-GCC-4.9)
+    <toolset>gcc-4.9.2:$(CXXFLAGS-GCC-4.9)
+    <toolset>gcc-4.9.3:$(CXXFLAGS-GCC-4.9)
+    <toolset>gcc-5.0.0:$(CXXFLAGS-GCC-5)
+    <toolset>gcc-5.1.0:$(CXXFLAGS-GCC-5)
+    <toolset>gcc-5.2.0:$(CXXFLAGS-GCC-5)
+    <toolset>gcc-6.0:$(CXXFLAGS-GCC-6)
+    <toolset>gcc-6.1:$(CXXFLAGS-GCC-6)
+
+   : default-build release
+
+;
+
+import os ;
+
+rule setvar ( env : default * )
+{
+    if [ os.environ $(env) ]
+    {
+        return [ os.environ $(env) ] ;
+    }
+    else
+    {
+        return $(default) ;
+    }
+}
+
+constant LIB_PREFIX : [ setvar LIB_PREFIX : lib ] ;
+constant INCLUDE_PREFIX : [ setvar INCLUDE_PREFIX : include/program_options ] ;
+
+explicit headers libprogram_options all ;
+alias all : headers libprogram_options ;
+
+install headers
+    : [ glob src/*.hpp ]
+    :
+    : <location>$(INCLUDE_PREFIX)
+    ;
+
+install libprogram_options
+    : program_options
+    : <install-type>LIB <location>$(LIB_PREFIX)
+    ;
+
+
+## Libraries
+
+lib program_options : src/program_options.cpp : <cxxflags>-fPIC ;
+
+## Unit Tests
+
+lib libboost_unit_test : : <name>boost_unit_test_framework <link>shared ;
+
+import testing ;
+
+unit-test test_program_options :
+    tests/test_program_options.cpp
+    program_options
+    libboost_unit_test
+: <variant>coverage:<library>gcov ;
