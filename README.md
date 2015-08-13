@@ -1,5 +1,6 @@
 Parse command-line options (C++11).
 
+
 # Examples
 
 ```c++
@@ -32,28 +33,39 @@ int main(int ac, char ** av) {
 
 ```
 
+
 # Exceptions
 
-- `unknow_option`
-- `invalid_option_value`
-- `invalid_command_line_syntax`
+- `program_options::unknow_option`
+- `program_options::invalid_option_value`
+- `program_options::invalid_command_line_syntax`
 
-# Test
+
+# Tests
 
 `$ bjam test_program_options`
 
 
-# Build library
+# Install libraries
 
-`$ bjam libprogram_options headers`
+`$ bjam install`
 
 or
 
-`$ bjam libprogram_options headers link=static`
+`$ bjam install link=static`
 
 
 This command make two directories: `lib` and `include/program_options`.
 
-Paths configurable with `LIB_PREFIX` and `INCLUDE_PREFIX`.
+Paths configurable with `LIB_PREFIX` and `INCLUDE_PREFIX` variables environment.
 
-`$ LIB_PREFIX=/usr/local/lib INCLUDE_PREFIX=/usr/local/include/program_options bjam libprogram_options headers`
+`$ LIB_PREFIX=/usr/local/lib INCLUDE_PREFIX=/usr/local/include/program_options bjam install`
+
+
+# Package
+
+With Wallix packager (https://github.com/wallix/packager).
+
+`$ $PACKAGER_PROJECT/packager.py --version 1.0 --no-entry-changelog`
+
+`$ dpkg-buildpackage -I.git -Ibin -uc -us`

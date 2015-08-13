@@ -129,7 +129,6 @@ variant asan : debug :
 
 project program_options
     : requirements
-    <include>src
 
     <variant>debug:<cxxflags>-g
 
@@ -169,16 +168,16 @@ rule setvar ( env : default * )
 constant LIB_PREFIX : [ setvar LIB_PREFIX : lib ] ;
 constant INCLUDE_PREFIX : [ setvar INCLUDE_PREFIX : include/program_options ] ;
 
-explicit headers libprogram_options all ;
-alias all : headers libprogram_options ;
+explicit install-headers install-libprogram_options install ;
+alias install : install-headers install-libprogram_options ;
 
-install headers
+install install-headers
     : [ glob src/*.hpp ]
     :
     : <location>$(INCLUDE_PREFIX)
     ;
 
-install libprogram_options
+install install-libprogram_options
     : program_options
     : <install-type>LIB <location>$(LIB_PREFIX)
     ;
@@ -198,4 +197,4 @@ unit-test test_program_options :
     tests/test_program_options.cpp
     program_options
     libboost_unit_test
-: <variant>coverage:<library>gcov ;
+: <include>src <variant>coverage:<library>gcov ;

@@ -1,0 +1,10 @@
+LIB_PREFIX=/usr/local/lib
+INCLUDE_PREFIX=/usr/local/include
+ARCH=any
+BUILD_DEPENDS=debhelper (>=7), dpkg-dev, build-essential, g++ (>=4.9), libboost-test-dev
+DEPENDS=
+PROJECT_NAME=program-options
+MAINTAINER=WAB Dev Team <wab@wallix.com>
+VCS_GIT=https://github.com/wallix/program_options.git
+VCS_BROWSER=https://github.com/wallix/program_options
+HOMEPAGE=https://github.com/wallix/program_options
