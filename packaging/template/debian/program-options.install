@@ -1,0 +1,5 @@
+%LIB_PREFIX%/libprogram_options.a
+%LIB_PREFIX%/libprogram_options.so
+%LIB_PREFIX%/libprogram_options_d.a
+%LIB_PREFIX%/libprogram_options_d.so
+%INCLUDE_PREFIX%/program_options.hpp
