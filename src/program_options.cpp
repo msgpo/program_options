@@ -34,7 +34,7 @@ namespace program_options {
 bool option_value::parse_int(char const * s, int * x) {
     char * p;
     long const n = std::strtol(s, &p, 10);
-    if (n > long(std::numeric_limits<int>::max())) {
+    if (n > std::numeric_limits<int>::max()) {
         return false;
     }
     *x = n;
@@ -44,7 +44,7 @@ bool option_value::parse_int(char const * s, int * x) {
 bool option_value::parse_unsigned_int(char const * s, unsigned int * x) {
     char * p;
     unsigned long const n = std::strtoul(s, &p, 10);
-    if (n > long(std::numeric_limits<unsigned>::max())) {
+    if (n > std::numeric_limits<unsigned>::max()) {
         return false;
     }
     *x = n;
