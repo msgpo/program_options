@@ -167,15 +167,15 @@ size_t variables_map::count(char name) const
 }
 
 
-unknow_option::unknow_option()
+unknown_option::unknown_option()
 : std::runtime_error("unrecognised empty option")
 {}
 
-unknow_option::unknow_option(char opt)
+unknown_option::unknown_option(char opt)
 : std::runtime_error(std::move(std::string("unrecognised option '-") + opt + '\''))
 {}
 
-unknow_option::unknow_option(std::string opt)
+unknown_option::unknown_option(std::string opt)
 : std::runtime_error(std::move(std::string("unrecognised option '--") + opt + '\''))
 {}
 
@@ -222,14 +222,14 @@ namespace {
 
 option_description const & get_option_description(options_description const & desc, char opt) {
     if (!opt) {
-        throw unknow_option();
+        throw unknown_option();
     }
     auto pred = [&](option_description const & option) {
         return option.short_name() == opt;
     };
     auto it = std::find_if(desc.begin(), desc.end(), pred);
     if (it == desc.end()) {
-        throw unknow_option(opt);
+        throw unknown_option(opt);
     }
     assert(std::find_if(it+1, desc.end(), pred) == desc.end());
     return *it;
@@ -237,14 +237,14 @@ option_description const & get_option_description(options_description const & de
 
 option_description const & get_option_description(options_description const & desc, char const *opt) {
     if (!*opt) {
-        throw unknow_option();
+        throw unknown_option();
     }
     auto pred = [&](option_description const & option) {
         return option.long_name() == opt;
     };
     auto it = std::find_if(desc.begin(), desc.end(), pred);
     if (it == desc.end()) {
-        throw unknow_option(opt);
+        throw unknown_option(opt);
     }
     assert(std::find_if(it+1, desc.end(), pred) == desc.end());
     return *it;

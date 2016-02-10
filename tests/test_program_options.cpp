@@ -108,8 +108,8 @@ BOOST_AUTO_TEST_CASE(TestProgramOptions)
 
         BOOST_CHECK_EXCEPTION(
             po::parse_command_line(sizeof(av)/sizeof(av[0]), const_cast<char**>(av), desc),
-            po::unknow_option,
-            is_except<po::unknow_option>
+            po::unknown_option,
+            is_except<po::unknown_option>
         );
     }
 }

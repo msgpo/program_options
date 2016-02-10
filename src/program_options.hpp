@@ -155,11 +155,11 @@ namespace program_options {
     };
 
 
-    struct unknow_option : std::runtime_error
+    struct unknown_option : std::runtime_error
     {
-        unknow_option();
-        explicit unknow_option(char opt);
-        explicit unknow_option(std::string opt);
+        unknown_option();
+        explicit unknown_option(char opt);
+        explicit unknown_option(std::string opt);
     };
 
     struct invalid_option_value : std::runtime_error

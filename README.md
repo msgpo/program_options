@@ -36,7 +36,7 @@ int main(int ac, char ** av) {
 
 # Exceptions
 
-- `program_options::unknow_option`
+- `program_options::unknown_option`
 - `program_options::invalid_option_value`
 - `program_options::invalid_command_line_syntax`
 
