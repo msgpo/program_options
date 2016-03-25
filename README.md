@@ -13,8 +13,8 @@ int main(int ac, char ** av) {
         {'v', "verbose", "For more verbose basic debugging"},
         {"no-message", "Suppress error"},
         {'a', "Build all targets"},
-        {'x' "xxx", ""/*no desciption*/},
-        {"in", &in, "input file"}
+        {'x', "xxx", ""/*no desciption*/},
+        {"in", &in, "input file"},
     });
 
     auto map = po::parse_command_line(ac, av, desc);

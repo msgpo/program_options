@@ -37,7 +37,7 @@ bool option_value::parse_int(char const * s, int * x) {
     if (n > std::numeric_limits<int>::max()) {
         return false;
     }
-    *x = n;
+    *x = static_cast<int>(n);
     return p != s && !*p;
 }
 
@@ -47,7 +47,7 @@ bool option_value::parse_unsigned_int(char const * s, unsigned int * x) {
     if (n > std::numeric_limits<unsigned>::max()) {
         return false;
     }
-    *x = n;
+    *x = static_cast<unsigned>(n);
     return p != s && !*p;
 }
 
@@ -102,10 +102,9 @@ namespace {
     template<bool Print, class Fn>
     void output_desc(std::ostream & os, options_description const & desc, Fn f) {
         for (option_description const & opt : desc) {
-            size_t len = opt.long_name().size();
+            size_t len = opt.long_name().size() + 1;
             if (opt.has_short_name()) {
                 if (Print) os << "  -" << opt.short_name();
-                len += 1;
                 if (opt.has_long_name()) {
                     if (Print) os << " [ --" << opt.long_name() << " ]";
                     len += 7;
@@ -113,7 +112,6 @@ namespace {
             }
             else if (opt.has_long_name()) {
                 if (Print) os << "  --" << opt.long_name();
-                len += 2;
             }
 
             if (opt.has_value()) {
@@ -131,7 +129,7 @@ namespace {
 std::ostream & operator<<(std::ostream & os, options_description const & desc) {
     size_t max_len = 0;
     output_desc<false>(os, desc, [&](size_t len) { max_len = std::max(max_len, len); });
-    output_desc<true >(os, desc, [&](size_t len) { os << std::setw(max_len - len + 2) << ""; });
+    output_desc<true >(os, desc, [&](size_t len) { os << std::setw(int(max_len - len + 2)) << ""; });
     return os;
 }
 
