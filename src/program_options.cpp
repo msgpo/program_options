@@ -250,7 +250,7 @@ option_description const & get_option_description(options_description const & de
 
 }
 
-variables_map parse_command_line(int ac, char * const * av, const options_description & desc)
+variables_map parse_command_line(int ac, char const * const * av, const options_description & desc)
 {
     variables_map variables;
 
