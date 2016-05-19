@@ -151,7 +151,7 @@ namespace program_options {
 
     private:
         std::vector<std::reference_wrapper<option_description const>> ref_descriptions;
-        friend variables_map parse_command_line(int ac, char ** av, options_description const & desc);
+        friend variables_map parse_command_line(int ac, char * const * av, options_description const & desc);
     };
 
 
@@ -174,7 +174,7 @@ namespace program_options {
         invalid_command_line_syntax();
     };
 
-    variables_map parse_command_line(int ac, char ** av, options_description const & desc);
+    variables_map parse_command_line(int ac, char * const * av, options_description const & desc);
 }
 
 #endif
