@@ -177,6 +177,8 @@ unknown_option::unknown_option(std::string opt)
 : std::runtime_error(std::move(std::string("unrecognised option '--") + opt + '\''))
 {}
 
+unknown_option::~unknown_option() = default;
+
 
 invalid_option_value::invalid_option_value(option_description const & option, char const * arg)
 : std::runtime_error([&]{
@@ -194,6 +196,8 @@ invalid_option_value::invalid_option_value(option_description const & option, ch
     return s;
 }())
 {}
+
+invalid_option_value::~invalid_option_value() = default;
 
 
 invalid_command_line_syntax::invalid_command_line_syntax(option_description const & option)
@@ -214,6 +218,8 @@ invalid_command_line_syntax::invalid_command_line_syntax(option_description cons
 invalid_command_line_syntax::invalid_command_line_syntax()
 : runtime_error("invalid syntax")
 {}
+
+invalid_command_line_syntax::~invalid_command_line_syntax() = default;
 
 
 namespace {

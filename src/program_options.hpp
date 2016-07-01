@@ -160,18 +160,21 @@ namespace program_options {
         unknown_option();
         explicit unknown_option(char opt);
         explicit unknown_option(std::string opt);
+        ~unknown_option();
     };
 
     struct invalid_option_value : std::runtime_error
     {
         invalid_option_value(option_description const & option, char const * arg);
+        ~invalid_option_value();
     };
 
 
     struct invalid_command_line_syntax : std::runtime_error
     {
-        explicit invalid_command_line_syntax(option_description const & option);
         invalid_command_line_syntax();
+        explicit invalid_command_line_syntax(option_description const & option);
+        ~invalid_command_line_syntax();
     };
 
     variables_map parse_command_line(int ac, char const * const * av, options_description const & desc);

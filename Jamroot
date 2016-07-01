@@ -56,6 +56,7 @@ constant CXXFLAGS-COMMON :
 
 #     <toolset>clang:<cxxflags>-Weverything
 #     <toolset>clang:<cxxflags>-Wno-c++98-compat
+    <toolset>clang:<cxxflags>-Wweak-vtables
     <toolset>clang:<cxxflags>-Wno-mismatched-tags
 #    <toolset>clang:<cxxflags>-Wno-overloaded-virtual
     <toolset>clang:<cxxflags>-Wno-char-subscripts
