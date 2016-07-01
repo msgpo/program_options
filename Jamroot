@@ -54,14 +54,19 @@ constant CXXFLAGS-COMMON :
     <cxxflags>-Wold-style-cast
     <cxxflags>-Wsign-conversion
 
-#     <toolset>clang:<cxxflags>-Weverything
-#     <toolset>clang:<cxxflags>-Wno-c++98-compat
-    <toolset>clang:<cxxflags>-Wweak-vtables
+    <toolset>clang:<cxxflags>-Weverything
+    <toolset>clang:<cxxflags>-Wno-documentation-unknown-command
+#     <toolset>clang:<cxxflags>-Wno-range-loop-analysis
+    <toolset>clang:<cxxflags>-Wno-disabled-macro-expansion
+    <toolset>clang:<cxxflags>-Wno-c++98-compat
+    <toolset>clang:<cxxflags>-Wno-c++98-compat-pedantic
     <toolset>clang:<cxxflags>-Wno-mismatched-tags
-#    <toolset>clang:<cxxflags>-Wno-overloaded-virtual
-    <toolset>clang:<cxxflags>-Wno-char-subscripts
-    <toolset>clang:<cxxflags>-Wno-unused-variable
-#     <toolset>clang:<cxxflags>-Wno-unused-private-field
+    <toolset>clang:<cxxflags>-Wno-padded
+    <toolset>clang:<cxxflags>-Wno-shadow
+    <toolset>clang:<cxxflags>-Wno-global-constructors
+    <toolset>clang:<cxxflags>-Wno-weak-vtables
+
+    <toolset>clang:<cxxflags>-Qunused-arguments
 ;
 
 
