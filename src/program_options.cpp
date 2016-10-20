@@ -166,15 +166,15 @@ size_t variables_map::count(char name) const
 
 
 unknown_option::unknown_option()
-: std::runtime_error("unrecognised empty option")
+: std::runtime_error("unrecognized empty option")
 {}
 
 unknown_option::unknown_option(char opt)
-: std::runtime_error(std::move(std::string("unrecognised option '-") + opt + '\''))
+: std::runtime_error(std::move(std::string("unrecognized option '-") + opt + '\''))
 {}
 
 unknown_option::unknown_option(std::string opt)
-: std::runtime_error(std::move(std::string("unrecognised option '--") + opt + '\''))
+: std::runtime_error(std::move(std::string("unrecognized option '--") + opt + '\''))
 {}
 
 
