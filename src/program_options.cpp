@@ -218,6 +218,7 @@ invalid_command_line_syntax::invalid_command_line_syntax()
 
 void options_description::check_option_names() const
 {
+#ifndef NDEBUG
     std::string short_names;
     std::vector<std::reference_wrapper<const std::string>> long_names;
 
@@ -240,6 +241,7 @@ void options_description::check_option_names() const
 
     assert(has_unique_short_name && "two short option defined with the same name");
     assert(has_unique_long_name && "two long option defined with the same name");
+#endif
 }
 
 namespace {
