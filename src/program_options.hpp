@@ -129,7 +129,11 @@ namespace program_options {
 
         explicit options_description(options_list options)
         : options_(std::move(options))
-        {}
+        {
+            #ifndef NDEBUG
+            this->check_option_names();
+            #endif
+        }
 
         void add(option_description option)
         { options_.push_back(std::move(option)); }
@@ -138,6 +142,7 @@ namespace program_options {
         iterator end() const { return this->options_.end(); }
 
     private:
+        void check_option_names() const;
         options_list options_;
     };
 

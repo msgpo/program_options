@@ -216,6 +216,32 @@ invalid_command_line_syntax::invalid_command_line_syntax()
 {}
 
 
+void options_description::check_option_names() const
+{
+    std::string short_names;
+    std::vector<std::reference_wrapper<const std::string>> long_names;
+
+    for (option_description const & opt : this->options_) {
+        if (opt.has_short_name()) {
+            short_names.push_back(opt.short_name());
+        }
+    }
+    for (option_description const & opt : this->options_) {
+        if (opt.has_long_name()) {
+            long_names.push_back(opt.long_name());
+        }
+    }
+
+    std::sort(short_names.begin(), short_names.end());
+    std::sort(long_names.begin(), long_names.end(), std::less<std::string>{});
+
+    bool const has_unique_short_name = std::unique(short_names.begin(), short_names.end()) == short_names.end();
+    bool const has_unique_long_name = std::unique(long_names.begin(), long_names.end(), std::equal_to<std::string>{}) == long_names.end();
+
+    assert(has_unique_short_name && "two short option defined with the same name");
+    assert(has_unique_long_name && "two long option defined with the same name");
+}
+
 namespace {
 
 option_description const & get_option_description(options_description const & desc, char opt) {
@@ -229,7 +255,6 @@ option_description const & get_option_description(options_description const & de
     if (it == desc.end()) {
         throw unknown_option(opt);
     }
-    assert(std::find_if(it+1, desc.end(), pred) == desc.end());
     return *it;
 }
 
@@ -244,7 +269,6 @@ option_description const & get_option_description(options_description const & de
     if (it == desc.end()) {
         throw unknown_option(opt);
     }
-    assert(std::find_if(it+1, desc.end(), pred) == desc.end());
     return *it;
 }
 
