@@ -198,7 +198,7 @@ invalid_option_value::invalid_option_value(option_description const & option, ch
 
 invalid_command_line_syntax::invalid_command_line_syntax(option_description const & option)
 : std::runtime_error([&]{
-    std::string s = "the required argument for option '";
+    std::string s = "the required argument for option '-";
     if (option.has_long_name()) {
         s += '-';
         s += option.long_name();
